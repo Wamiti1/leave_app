@@ -1,5 +1,6 @@
 //import 'dart:convert';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class Leavescreen extends StatefulWidget {
 
 class _LeavescreenState extends State<Leavescreen> {
   final formKey = GlobalKey<FormState>();
-  var serial = TextEditingController();
+  var serial = TextEditingController(text: Random().nextInt(340908989).toString());
   var leave = TextEditingController();
   var userid = TextEditingController();
 
@@ -29,7 +30,7 @@ class _LeavescreenState extends State<Leavescreen> {
                   'user_id': userid.text,   
     };
        //url
-    final url = Uri.parse('$api/apply');
+    final url = Uri.parse('$apionline/apply');
     // headers
     var headers ={"Content-Type":"application/json"};
     // body
@@ -39,9 +40,10 @@ class _LeavescreenState extends State<Leavescreen> {
     //Confirm the request is successful
       if(response.statusCode == 200){
         //Operation was successful
-        ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(response.body), duration: const Duration(milliseconds: 5000),));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(jsonDecode(response.body)), 
+          duration: const Duration(milliseconds: 5000),));
         return true;
-
       }
       
       else{
@@ -182,7 +184,7 @@ class _LeavescreenState extends State<Leavescreen> {
                  
                 postUsertoDB().then((value){
                   if(value == true){
-                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Great')));
+                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Application was successful')));
                   }
                   else{
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something went wrong')));

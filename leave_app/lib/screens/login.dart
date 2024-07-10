@@ -19,7 +19,7 @@ class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
   var first = TextEditingController(text: 'Sharon');
   var last = TextEditingController(text: 'Williams');
-  var email = TextEditingController(text: 'david${Random().nextInt(10)}@gmail.com');
+  var email = TextEditingController(text: 'david${Random().nextInt(100)}@gmail.com');
   var password = TextEditingController(text: 'patternsd');
 
   
@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
                   'password': password.text       
     };
        //url
-    final url = Uri.parse('$api/register');
+    final url = Uri.parse('$apionline/register');
     //headers
     var headers = {
       'Content-Type': 'application/json',
@@ -46,9 +46,8 @@ class _LoginState extends State<Login> {
     //Confirm the request is successful
       if(response.statusCode == 200){
         //Operation was successful
-        ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(response.body), duration: const Duration(milliseconds: 5000),));
+        ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(jsonDecode(response.body)), duration: const Duration(milliseconds: 5000),));
         return true;
-
       }
       
       else{
