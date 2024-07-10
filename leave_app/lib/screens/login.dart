@@ -5,6 +5,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:leave_app/repetitive/apiurl.dart';
 import 'package:leave_app/screens/leavescreen.dart';
 import 'package:http/http.dart' as http;
+import 'package:leave_app/screens/myleaves.dart';
 
 
 
@@ -211,7 +212,12 @@ class _LoginState extends State<Login> {
         
         
             }, 
-            child: const Text('Log In'))
+            child: const Text('Log In')),
+
+        OutlinedButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_)=> const LeaveApplications()));
+        }, 
+        child: const Text('Leave Applications')),
         
           ],
         ),

@@ -1,16 +1,18 @@
 //import 'dart:convert';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:leave_app/repetitive/apiurl.dart';
+import 'package:leave_app/screens/myleaves.dart';
 
 
 class Leavescreen extends StatefulWidget {
   const Leavescreen({super.key, required this.results});
   final Map results;
 
+
+ 
   @override
   State<Leavescreen> createState() => _LeavescreenState();
 }
@@ -185,6 +187,7 @@ class _LeavescreenState extends State<Leavescreen> {
                 postUsertoDB().then((value){
                   if(value == true){
                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Application was successful')));
+                     
                   }
                   else{
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something went wrong')));
@@ -205,8 +208,12 @@ class _LeavescreenState extends State<Leavescreen> {
         
         
             }, 
-            child: const Text('Apply for leave'))
+            child: const Text('Apply for leave')),
         
+        OutlinedButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_)=> const LeaveApplications()));
+        }, 
+        child: const Text('Leave Applications')),
           ],
         ),
       ]),
