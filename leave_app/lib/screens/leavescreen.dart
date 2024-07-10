@@ -1,5 +1,9 @@
+//import 'dart:convert';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:leave_app/repetitive/apiurl.dart';
 
 
 class Leavescreen extends StatefulWidget {
@@ -19,20 +23,19 @@ class _LeavescreenState extends State<Leavescreen> {
   Future <bool> postUsertoDB() async{
 
     try{
-       //url
-    final url = Uri.parse('http://192.168.128.75:5000/apply');
-    //headers
-    var headers = {
-      'User-Agent': 'insomnia/9.3.2',
-    };
-    //body
-    var body = {
+       Map<String,dynamic> results= {
                   'serial_number': serial.text,
                   'leave_type': leave.text,
                   'user_id': userid.text,   
     };
+       //url
+    final url = Uri.parse('$api/apply');
+    // headers
+    var headers ={"Content-Type":"application/json"};
+    // body
+    var body = jsonEncode(results);
 
-    http.Response response =  await http.post(url, body: body, headers : headers);
+    http.Response response =  await http.post(url, body: body,headers: headers );
     //Confirm the request is successful
       if(response.statusCode == 200){
         //Operation was successful
@@ -42,7 +45,7 @@ class _LeavescreenState extends State<Leavescreen> {
       }
       
       else{
-      // we knorew operation was unsuccessful\
+      // we knorew operation was unsuccessful
       return false;
 
       }
@@ -77,7 +80,7 @@ class _LeavescreenState extends State<Leavescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.handshake),
+        leading: null,
         title: Center(
           child: Column(
             children: [
@@ -149,7 +152,7 @@ class _LeavescreenState extends State<Leavescreen> {
                           border: OutlineInputBorder(),
                           labelText: 'User Id',
                           hintText: 'e.g. 2',
-                          prefixIcon: Icon(Icons.email_outlined)
+                          prefixIcon: Icon(Icons.person_2_rounded)
                         ),
                         keyboardType: TextInputType.name,
                         validator: (value){

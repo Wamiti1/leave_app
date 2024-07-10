@@ -1,7 +1,12 @@
+import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:leave_app/repetitive/apiurl.dart';
 import 'package:leave_app/screens/leavescreen.dart';
 import 'package:http/http.dart' as http;
+
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -12,27 +17,30 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   final formKey = GlobalKey<FormState>();
-  var first = TextEditingController();
-  var last = TextEditingController();
-  var email = TextEditingController();
-  var password = TextEditingController();
+  var first = TextEditingController(text: 'Sharon');
+  var last = TextEditingController(text: 'Williams');
+  var email = TextEditingController(text: 'david${Random().nextInt(10)}@gmail.com');
+  var password = TextEditingController(text: 'patternsd');
+
+  
 
   Future <bool> postUsertoDB() async{
 
     try{
-       //url
-    final url = Uri.parse('http://192.168.128.75:5000/register');
-    //headers
-    var headers = {
-      'User-Agent': 'insomnia/9.3.2',
-    };
-    //body
-    var body = {
+      Map <String, dynamic> results =  {
                   'firstname': first.text,
                   'lastname': last.text,
                   'email': email.text,
                   'password': password.text       
     };
+       //url
+    final url = Uri.parse('$api/register');
+    //headers
+    var headers = {
+      'Content-Type': 'application/json',
+    };
+    //body
+    var body = jsonEncode(results);
 
     http.Response response =  await http.post(url, body: body, headers : headers);
     //Confirm the request is successful
@@ -130,7 +138,7 @@ class _LoginState extends State<Login> {
                         validator: (value){
                             var validation = EmailValidator.validate('$value');
                             
-                            if(!validation){
+                            if(validation){
                               return null;
                             }
                             else{
@@ -183,7 +191,7 @@ class _LoginState extends State<Login> {
                 };
                 postUsertoDB().then((value){
                   if(value == true){
-                      Navigator.push(context, MaterialPageRoute(builder: (_)=>  Leavescreen(results: results,)));
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_)=>  Leavescreen(results: results,)));
                   }
                   else{
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Something went wrong')));
