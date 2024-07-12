@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:leave_app/repetitive/apiurl.dart';
 import 'package:leave_app/screens/myleaves.dart';
+import 'package:leave_app/screens/users.dart';
 
 
 class Leavescreen extends StatefulWidget {
@@ -214,6 +215,12 @@ class _LeavescreenState extends State<Leavescreen> {
           Navigator.push(context, MaterialPageRoute(builder: (_)=> const LeaveApplications()));
         }, 
         child: const Text('Leave Applications')),
+
+         OutlinedButton(onPressed: (){
+          Navigator.push(context, MaterialPageRoute(builder: (_)=> const Users()));
+        }, 
+        child: const Text('Users')),
+
           ],
         ),
       ]),

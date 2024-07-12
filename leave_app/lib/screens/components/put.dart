@@ -6,18 +6,17 @@ import 'package:leave_app/repetitive/apiurl.dart';
 import 'package:leave_app/screens/leavescreen.dart';
 import 'package:http/http.dart' as http;
 import 'package:leave_app/screens/myleaves.dart';
-import 'package:leave_app/screens/users.dart';
 
 
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class Put extends StatefulWidget {
+  const Put({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Put> createState() => _PutState();
 }
 
-class _LoginState extends State<Login> {
+class _PutState extends State<Put> {
   final formKey = GlobalKey<FormState>();
   var first = TextEditingController(text: 'Sharon');
   var last = TextEditingController(text: 'Williams');
@@ -72,7 +71,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Center(child: Text('Leave App'),),),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: const Text('Post'),),
       body: ListView(
         children:[ Column(
           children: [
@@ -219,11 +220,6 @@ class _LoginState extends State<Login> {
           Navigator.push(context, MaterialPageRoute(builder: (_)=> const LeaveApplications()));
         }, 
         child: const Text('Leave Applications')),
-
-         OutlinedButton(onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (_)=> const Users()));
-        }, 
-        child: const Text('Users')),
         
           ],
         ),

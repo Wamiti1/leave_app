@@ -71,6 +71,7 @@ def update_user_route(user_id):
     data = request.get_json()
     return update_user(user_id, data)
 
+
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user_route(user_id):
     return delete_user(user_id)
